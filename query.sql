@@ -1,6 +1,16 @@
 -- Queries
 
--- 1. List the following details of each employee: employee number, last name, first name, sex, and salary.
+-- 1. List the following details of each employee: employee number, last name, first name, sex,
+-- and salary.
+select
+	id as "Employee Number",
+	last_name as "Last Name",
+	first_name as "First Name",
+	sex as "Sex",
+	salary as "Salary"
+from employee
+join salary on employee.id = salary.emp_id;
+
 
 -- 2. List first name, last name, and hire date for employees who were hired in 1986.
 

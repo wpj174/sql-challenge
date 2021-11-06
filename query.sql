@@ -13,12 +13,26 @@ join salary on employee.id = salary.emp_id;
 
 
 -- 2. List first name, last name, and hire date for employees who were hired in 1986.
-select first_name, last_name, hire_date
+select
+	first_name as "First Name",
+	last_name as "Last Name",
+	hire_date as "Hire Date"
 from employee
 where date_part('year', hire_date) = 1986;
 
 
--- 3. List the manager of each department with the following information: department number, department name, the manager's employee number, last name, first name.
+-- 3. List the manager of each department with the following information: department number,
+-- department name, the manager's employee number, last name, first name.
+select
+	dept_id as "Department Number",
+	name as "Department Name",
+	emp_id as "Employee Number",
+	last_name as "Last Name",
+	first_name as "First Name"
+from department_manager
+join employee on department_manager.emp_id = employee.id
+join department on department_manager.dept_id = department.id;
+
 
 -- 4. List the department of each employee with the following information: employee number, last name, first name, and department name.
 

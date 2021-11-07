@@ -1,42 +1,42 @@
-create table title (
-	id varchar primary key,
-	title varchar
+CREATE TABLE title (
+	title_id VARCHAR PRIMARY KEY,
+	title VARCHAR
 );
 
-create table employee (
-	id integer primary key,
-	title_id varchar,
+CREATE TABLE employee (
+	emp_no INT PRIMARY KEY,
+	title_id VARCHAR,
 	birth_date date,
-	first_name varchar,
-	last_name varchar,
-	sex varchar,
+	first_name VARCHAR,
+	last_name VARCHAR,
+	sex VARCHAR,
 	hire_date date,
-	foreign key (title_id) references title(id)
+	FOREIGN KEY (title_id) REFERENCES title(title_id)
 );
 
-create table department (
-	id varchar primary key,
-	name varchar
+CREATE TABLE department (
+	dept_id VARCHAR PRIMARY KEY,
+	dept VARCHAR
 );
 
-create table department_manager (
-	dept_id varchar,
-	emp_id integer,
-	primary key (dept_id, emp_id),
-	foreign key (dept_id) references department(id),
-	foreign key (emp_id) references employee(id)
+CREATE TABLE dept_mgr (
+	dept_id VARCHAR,
+	emp_no INT,
+	PRIMARY KEY (dept_id, emp_no),
+	FOREIGN KEY (dept_id) REFERENCES department(dept_id),
+	FOREIGN KEY (emp_no) REFERENCES employee(emp_no)
 );
 
-create table department_employee (
-	emp_id integer,
-	dept_id varchar,
-	primary key (emp_id, dept_id),
-	foreign key (emp_id) references employee(id),
-	foreign key (dept_id) references department(id)
+CREATE TABLE dept_emp (
+	emp_no INT,
+	dept_id VARCHAR,
+	PRIMARY KEY (emp_no, dept_id),
+	FOREIGN KEY (emp_no) REFERENCES employee(emp_no),
+	FOREIGN KEY (dept_id) REFERENCES department(dept_id)
 );
 
-create table salary (
-	emp_id integer primary key,
-	salary integer,
-	foreign key (emp_id) references employee(id)
+CREATE TABLE salary (
+	emp_no INT PRIMARY KEY,
+	salary INT,
+	FOREIGN KEY (emp_no) REFERENCES employee(emp_no)
 );

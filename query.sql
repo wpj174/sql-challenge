@@ -2,50 +2,53 @@
 
 -- 1. List the following details of each employee: employee number, last name, first name, sex,
 --    and salary.
-select
-	id as "Employee Number",
-	last_name as "Last Name",
-	first_name as "First Name",
-	sex as "Sex",
-	salary as "Salary"
-from employee
-join salary on employee.id = salary.emp_id;
+SELECT
+	employee.emp_no AS "Employee Number",
+	last_name AS "Last Name",
+	first_name AS "First Name",
+	sex AS "Sex",
+	salary AS "Salary"
+FROM employee
+INNER JOIN salary on employee.emp_no = salary.emp_no;
 
 
 -- 2. List first name, last name, and hire date for employees who were hired in 1986.
-select
-	first_name as "First Name",
-	last_name as "Last Name",
-	hire_date as "Hire Date"
-from employee
-where date_part('year', hire_date) = 1986;
+SELECT
+	first_name AS "First Name",
+	last_name AS "Last Name",
+	hire_date AS "Hire Date"
+FROM employee
+WHERE hire_date BETWEEN '1986-01-01' AND '1986-12-31';
 
 
 -- 3. List the manager of each department with the following information: department number,
 --    department name, the manager's employee number, last name, first name.
-select
-	dept_id as "Department Number",
-	name as "Department Name",
-	emp_id as "Employee Number",
-	last_name as "Last Name",
-	first_name as "First Name"
-from department_manager
-join employee on department_manager.emp_id = employee.id
-join department on department_manager.dept_id = department.id;
+SELECT
+	dept_mgr.dept_id AS "Department Number",
+	dept AS "Department Name",
+	dept_mgr.emp_no AS "Employee Number",
+	last_name AS "Last Name",
+	first_name AS "First Name"
+FROM dept_mgr
+INNER JOIN employee ON dept_mgr.emp_no = employee.emp_no
+INNER JOIN department ON dept_mgr.dept_id = department.dept_id;
 
 
 -- 4. List the department of each employee with the following information: employee number,
 --    last name, first name, and department name.
-select
-	employee.id as "Employee Number",
-	last_name as "Last Name",
-	first_name as "First Name",
-	dept_id
-from employee
-left join department_employee on department_employee.emp_id = employee.id;
---join department on department.id = department_employee.dept_id;
+SELECT
+	employee.emp_no AS "Employee Number",
+	last_name AS "Last Name",
+	first_name AS "First Name",
+	dept_emp.dept_id
+FROM employee
+INNER JOIN dept_emp ON dept_emp.emp_no = employee.emp_no
+INNER JOIN department ON department.dept_id = dept_emp.dept_id;
 
-select * from department_employee;
+-- There is a problem with the data: the dept_emp table has ~ 30k records with duplicated
+-- emp_no and different dept_id's.  As if the employees were transferred to another department,
+-- their old dept_emp record wasn't deleted.
+
 
 -- 5. List first name, last name, and sex for employees whose first name is "Hercules"
 --    and last names begin with "B."

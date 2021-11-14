@@ -46,7 +46,7 @@ INNER JOIN dept_emp ON dept_emp.emp_no = employee.emp_no
 INNER JOIN department ON department.dept_id = dept_emp.dept_id;
 
 -- There is a problem with the data: the dept_emp table has ~ 30k records with duplicated
--- emp_no and different dept_id's.  As if the employees were transferred to another department,
+-- emp_no and different dept_id's.  it's as if the employees were transferred to another department,
 -- their old dept_emp record wasn't deleted.
 
 
